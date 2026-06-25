@@ -1,0 +1,5 @@
+metric_id,teacher_id,academic_year,semester,courses_taught,avg_student_score,attendance_rate_pct,student_feedback_score,lab_sessions,office_hours_per_week
+M9001,T2001,2023-24,Sem1,3,82.5,96,4.6,6,4
+M9002,T2002,2023-24,Sem1,2,74.2,92,4.1,4,3
+M9003,T2003,2023-24,Sem1,2,88.9,98,4.8,8,5
+M9004,T2004,2023-24,Sem1,1,76.0,90,3.9,2,2

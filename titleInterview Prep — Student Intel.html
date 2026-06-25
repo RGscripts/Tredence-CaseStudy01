@@ -1,0 +1,577 @@
+<title>Interview Prep — Student Intelligence Assistant</title>
+<style>
+  :root {
+    --bg:       #0D1117;
+    --surface:  #161B22;
+    --raised:   #1C2128;
+    --border:   #30363D;
+    --hi:       #444C56;
+    --amber:    #E3A136;
+    --amber-lo: rgba(227,161,54,0.1);
+    --amber-bd: rgba(227,161,54,0.25);
+    --blue:     #388BFD;
+    --blue-lo:  rgba(56,139,253,0.08);
+    --blue-bd:  rgba(56,139,253,0.25);
+    --green:    #3FB950;
+    --green-lo: rgba(63,185,80,0.08);
+    --green-bd: rgba(63,185,80,0.25);
+    --red:      #F78166;
+    --text:     #C9D1D9;
+    --muted:    #8B949E;
+    --dim:      #484F58;
+    --mono: 'Courier New', Courier, monospace;
+    --sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page { max-width: 860px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* ── TOPBAR ── */
+  .topbar {
+    display: flex; align-items: center; gap: 12px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 36px;
+  }
+  .logo {
+    background: var(--amber); color: #0D1117;
+    font-family: var(--mono); font-size: 0.72rem; font-weight: 900;
+    width: 32px; height: 32px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; letter-spacing: -0.5px;
+  }
+  .topbar-label { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; }
+  .topbar-sub { font-size: 0.78rem; color: var(--dim); margin-top: 1px; }
+  .pill {
+    margin-left: auto;
+    background: var(--amber-lo); border: 1px solid var(--amber-bd);
+    color: var(--amber); font-family: var(--mono); font-size: 0.68rem;
+    padding: 3px 10px; border-radius: 20px; letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+
+  /* ── HERO ── */
+  .hero { margin-bottom: 48px; }
+  .hero-eye {
+    font-family: var(--mono); font-size: 0.68rem;
+    color: var(--amber); letter-spacing: 0.16em;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+  h1 {
+    font-family: var(--mono); font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+    font-weight: 700; color: #E6EDF3; line-height: 1.2;
+    text-wrap: balance; margin-bottom: 14px; letter-spacing: -0.02em;
+  }
+  h1 em { color: var(--amber); font-style: normal; }
+  .hero-sub { font-size: 0.92rem; color: var(--muted); line-height: 1.7; max-width: 560px; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 52px; }
+  h2 {
+    font-family: var(--mono); font-size: 0.68rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 18px;
+    padding-bottom: 10px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+  h2 .num {
+    background: var(--amber-lo); border: 1px solid var(--amber-bd);
+    color: var(--amber); font-size: 0.62rem; padding: 1px 7px;
+    border-radius: 10px; font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Q&A CARDS ── */
+  .qa { display: flex; flex-direction: column; gap: 12px; }
+  .qa-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; overflow: hidden;
+  }
+  .qa-q {
+    padding: 14px 18px;
+    font-size: 0.9rem; font-weight: 600; color: #E6EDF3;
+    display: flex; gap: 10px; align-items: flex-start;
+    border-bottom: 1px solid var(--border);
+    background: var(--raised);
+  }
+  .qa-q-icon {
+    background: var(--amber-lo); border: 1px solid var(--amber-bd);
+    color: var(--amber); font-family: var(--mono); font-size: 0.65rem;
+    font-weight: 700; padding: 2px 7px; border-radius: 4px;
+    white-space: nowrap; flex-shrink: 0; margin-top: 2px;
+    letter-spacing: 0.04em;
+  }
+  .qa-a {
+    padding: 16px 18px;
+    font-size: 0.84rem; color: var(--text); line-height: 1.7;
+  }
+  .qa-a p + p { margin-top: 10px; }
+
+  /* "say exactly this" highlight box */
+  .say {
+    background: var(--green-lo); border: 1px solid var(--green-bd);
+    border-left: 3px solid var(--green);
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px; margin: 12px 0;
+    font-size: 0.82rem; color: #E6EDF3; line-height: 1.65;
+  }
+  .say-label {
+    font-family: var(--mono); font-size: 0.6rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--green); margin-bottom: 6px;
+  }
+
+  /* insight box */
+  .insight {
+    background: var(--amber-lo); border: 1px solid var(--amber-bd);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px; margin: 12px 0;
+    font-size: 0.82rem; color: #E6EDF3; line-height: 1.65;
+  }
+  .insight-label {
+    font-family: var(--mono); font-size: 0.6rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 6px;
+  }
+
+  /* note box */
+  .note {
+    background: var(--blue-lo); border: 1px solid var(--blue-bd);
+    border-radius: 6px;
+    padding: 12px 16px; margin: 12px 0;
+    font-size: 0.82rem; color: var(--text); line-height: 1.65;
+  }
+  .note strong { color: var(--blue); }
+
+  code {
+    font-family: var(--mono); font-size: 0.78rem;
+    color: var(--amber); background: var(--amber-lo);
+    padding: 1px 5px; border-radius: 3px;
+  }
+  strong { color: #E6EDF3; }
+
+  /* ── STEP LIST ── */
+  .steps { display: flex; flex-direction: column; gap: 10px; }
+  .step {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; padding: 14px 16px;
+  }
+  .step-n {
+    font-family: var(--mono); font-size: 0.72rem; font-weight: 700;
+    color: var(--amber);
+    background: var(--amber-lo); border: 1px solid var(--amber-bd);
+    border-radius: 50%; width: 24px; height: 24px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .step-title { font-size: 0.86rem; font-weight: 600; color: #E6EDF3; margin-bottom: 4px; }
+  .step-body { font-size: 0.8rem; color: var(--muted); line-height: 1.55; }
+  .step-body code { font-size: 0.74rem; }
+
+  /* ── REQ TABLE ── */
+  .req-grid { display: flex; flex-direction: column; gap: 8px; }
+  .req-row {
+    display: grid; grid-template-columns: auto 1fr 1fr;
+    gap: 12px; align-items: start;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; padding: 12px 14px;
+  }
+  .req-check {
+    width: 20px; height: 20px;
+    background: var(--green-lo); border: 1px solid var(--green-bd);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 1px;
+  }
+  .req-check svg { width: 10px; height: 10px; }
+  .req-what { font-size: 0.82rem; font-weight: 600; color: #E6EDF3; line-height: 1.45; }
+  .req-how { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+  /* ── CHEAT SHEET ── */
+  .cheat {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; overflow: hidden;
+  }
+  .cheat-header {
+    background: var(--raised); padding: 12px 16px;
+    font-family: var(--mono); font-size: 0.7rem;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber);
+    border-bottom: 1px solid var(--border);
+  }
+  .cheat-body { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+  .cheat-row { display: flex; gap: 12px; align-items: flex-start; }
+  .cheat-label {
+    font-family: var(--mono); font-size: 0.7rem; color: var(--amber);
+    min-width: 80px; padding-top: 2px; flex-shrink: 0;
+  }
+  .cheat-val { font-size: 0.82rem; color: var(--text); line-height: 1.5; }
+
+  /* ── POWER PHRASES ── */
+  .phrases { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .phrase {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 6px; padding: 12px 14px;
+    font-size: 0.8rem; color: var(--text); line-height: 1.5;
+    display: flex; gap: 8px;
+  }
+  .phrase-q { color: var(--dim); font-family: var(--mono); font-size: 0.75rem; flex-shrink: 0; padding-top: 2px; }
+
+  /* ── FOOTER ── */
+  .footer {
+    border-top: 1px solid var(--border); padding-top: 20px; margin-top: 12px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 8px;
+  }
+  .footer-l { font-family: var(--mono); font-size: 0.68rem; color: var(--dim); }
+  .footer-r { font-size: 0.72rem; color: var(--muted); display: flex; gap: 14px; }
+
+  @media (max-width: 600px) {
+    .req-row { grid-template-columns: auto 1fr; }
+    .req-how { display: none; }
+    .phrases { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="page">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="logo">IP</div>
+    <div>
+      <div class="topbar-label">Interview Prep</div>
+      <div class="topbar-sub">Student Intelligence Assistant · Tredence Case Study</div>
+    </div>
+    <div class="pill">Read before interview</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-eye">Everything you need to explain your project</div>
+    <h1>Your answers.<br><em>Confident. Exact. Ready.</em></h1>
+    <p class="hero-sub">
+      Every question your interviewer is likely to ask — with exactly what to say,
+      why each decision was made, and how every requirement is satisfied.
+    </p>
+  </div>
+
+  <!-- 1. OPENING — WALK ME THROUGH -->
+  <div class="section">
+    <h2><span class="num">01</span> Walk me through your project</h2>
+    <div class="qa">
+      <div class="qa-card">
+        <div class="qa-q">
+          <div class="qa-q-icon">Q</div>
+          "Can you walk me through what you built and how you approached it?"
+        </div>
+        <div class="qa-a">
+          <p>Start with the problem, then the decision, then the result.</p>
+          <div class="say">
+            <div class="say-label">Say this</div>
+            "The requirement was to build a system that reads data files and a logic file, then answers any question about college students correctly using a free model — specifically something like NotebookLM.
+            <br><br>
+            My approach was to mirror exactly how NotebookLM works internally. NotebookLM is a Google product — it loads your full documents into a Gemini context window and lets the model reason over everything at once. I applied the same architecture to structured data: load all 12 CSV datasets into SQLite, serialize every table as plain text, pre-compute critical aggregates in SQL so the LLM reads verified facts, and send the complete picture to Gemini 1.5 Flash — the same free model that powers NotebookLM.
+            <br><br>
+            The result is a Streamlit web app where you type any question and get a grounded, numbered, reasoned answer — no hallucination, because every number the model cites comes directly from the data."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. REQUIREMENTS -->
+  <div class="section">
+    <h2><span class="num">02</span> Requirements — how each one is satisfied</h2>
+
+    <div class="req-grid">
+      <div class="req-row">
+        <div class="req-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#3FB950" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <div class="req-what">Input = a data file</div>
+          <div class="req-how" style="color:var(--text);font-size:0.8rem;margin-top:2px;">12 CSV files in <code>data/</code> folder</div>
+        </div>
+        <div class="req-how"><code>load_data.py</code> reads every CSV on startup, auto-detects column types (INTEGER / REAL / TEXT), and loads them into <code>student_intelligence.db</code> — a SQLite file. Any new CSV can be uploaded live from the app UI without restarting.</div>
+      </div>
+
+      <div class="req-row">
+        <div class="req-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#3FB950" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <div class="req-what">Input = a logic file</div>
+          <div class="req-how" style="color:var(--text);font-size:0.8rem;margin-top:2px;">The system prompt in <code>llm.py</code></div>
+        </div>
+        <div class="req-how">The <code>SYSTEM_PROMPT</code> constant is a separate logic file. It contains 5 analytical rules: scan all data first, find signal not noise, cite exact numbers, rank everyone (not just the winner), explain the WHY. It governs how the LLM reasons — completely separate from the data files.</div>
+      </div>
+
+      <div class="req-row">
+        <div class="req-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#3FB950" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <div class="req-what">Everything about college students — correct answers</div>
+          <div class="req-how" style="color:var(--text);font-size:0.8rem;margin-top:2px;">12 tables + pre-computed summaries</div>
+        </div>
+        <div class="req-how">Covers grades, attendance, study hours, mid/end sem marks, assignments, projects, placement readiness. The <code>_build_computed_summaries()</code> function pre-calculates attendance %, averages, and rankings in Python via SQL — these verified facts are appended to the context so the LLM reads answers, not raw rows to count.</div>
+      </div>
+
+      <div class="req-row">
+        <div class="req-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#3FB950" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <div class="req-what">Use a free model</div>
+          <div class="req-how" style="color:var(--text);font-size:0.8rem;margin-top:2px;">Gemini 1.5 Flash — free tier</div>
+        </div>
+        <div class="req-how">Google AI Studio provides Gemini 1.5 Flash completely free — no credit card, no billing. 1 million token context window. If it rate-limits, the system automatically falls back to Groq's Llama-3.3-70B, also free. Both keys go in a <code>.env</code> file.</div>
+      </div>
+
+      <div class="req-row">
+        <div class="req-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#3FB950" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <div class="req-what">NotebookLM-inspired</div>
+          <div class="req-how" style="color:var(--text);font-size:0.8rem;margin-top:2px;">Same model. Same architecture.</div>
+        </div>
+        <div class="req-how">NotebookLM runs on Gemini — I used the same model family. NotebookLM loads full documents into one context window — I load full tables the same way. The app UI mirrors NotebookLM's Sources sidebar. The approach is architecturally identical, adapted for structured CSV data instead of PDFs.</div>
+      </div>
+
+      <div class="req-row">
+        <div class="req-check"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="#3FB950" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div>
+          <div class="req-what">Add study hours + mid/end sem marks</div>
+          <div class="req-how" style="color:var(--text);font-size:0.8rem;margin-top:2px;">3 new datasets added</div>
+        </div>
+        <div class="req-how"><code>study_hours.csv</code> (35 sessions across all students), <code>mid_sem_marks.csv</code> (marks out of 50), <code>end_sem_marks.csv</code> (marks out of 100). The engine cross-joins these to compute mid→end improvement per student automatically.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. NOTEBOOKLM QUESTION -->
+  <div class="section">
+    <h2><span class="num">03</span> The NotebookLM question — nail this one</h2>
+    <div class="qa">
+      <div class="qa-card">
+        <div class="qa-q">
+          <div class="qa-q-icon">Q</div>
+          "I keep saying NotebookLM — how does your system relate to it?"
+        </div>
+        <div class="qa-a">
+          <p>This is the most important question. The interviewer mentioned this multiple times — she wants to see you understand <em>why</em> NotebookLM is the reference, not just that you used it as a buzzword.</p>
+          <div class="say">
+            <div class="say-label">Say exactly this</div>
+            "NotebookLM is built on Gemini — that's Google's model. When you upload documents to NotebookLM, it doesn't chop them into pieces and search for relevant fragments. It loads your entire document into Gemini's context window and lets the model read everything at once before answering.
+            <br><br>
+            I applied that exact same idea to structured data. Instead of PDF documents, my source is 12 CSV tables. My <code>data_engine.py</code> serializes every table row-by-row into plain text — like converting a spreadsheet into a readable document — and passes it all to Gemini in one call.
+            <br><br>
+            I even use the same model — Gemini 1.5 Flash, free via Google AI Studio. The UI mirrors NotebookLM's layout too: a Sources panel on the left showing all loaded datasets, and a main area for questions and answers.
+            <br><br>
+            So in one line: <strong>NotebookLM for structured college data, using the same model, same architecture, zero cost.</strong>"
+          </div>
+          <div class="insight">
+            <div class="insight-label">Why this impresses</div>
+            You're showing you understand the <em>principle</em> behind NotebookLM (full-context reasoning), not just the name. Most people would say "I got inspired by the interface." You're saying "I understood the architecture and replicated it for a different data type."
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. TECHNICAL DEEP DIVES -->
+  <div class="section">
+    <h2><span class="num">04</span> Technical questions — be ready for these</h2>
+    <div class="qa">
+
+      <div class="qa-card">
+        <div class="qa-q">
+          <div class="qa-q-icon">Q</div>
+          "How do you make sure the answers are correct? What prevents wrong output?"
+        </div>
+        <div class="qa-a">
+          <div class="say">
+            <div class="say-label">Say this</div>
+            "Two mechanisms. First, the system prompt has an absolute rule: every number cited must exist verbatim in the data. If the information isn't there, the model must say so. No estimation, no inference from partial data.
+            <br><br>
+            Second — and this is the important one — I pre-compute critical aggregates in Python using SQL before the LLM ever sees the data. Things like attendance percentage per student, average scores, mid-to-end-sem improvement. A large language model can miscount rows or miss a SQL join if it's trying to do that arithmetic on its own. By running it in Python first and feeding the model verified numbers, I remove that error source entirely. The LLM reads facts, not raw data to calculate from."
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q">
+          <div class="qa-q-icon">Q</div>
+          "Why didn't you use RAG — vector embeddings and semantic search?"
+        </div>
+        <div class="qa-a">
+          <div class="say">
+            <div class="say-label">Say this</div>
+            "RAG makes sense when the dataset is too large to fit in a context window — like a 500-page PDF library. But my dataset is a few hundred rows across 12 tables, which fits comfortably in Gemini 1.5 Flash's 1-million-token window.
+            <br><br>
+            RAG would actually hurt here. If someone asks 'who is the best student overall,' a retrieval system might return only the top-scores table and miss the attendance data, or miss the study hours. By loading everything at once, the model sees the full picture for every question — which is exactly how NotebookLM works too. Full context beats partial retrieval when you have the context budget for it."
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q">
+          <div class="qa-q-icon">Q</div>
+          "What is the 'logic file' you built?"
+        </div>
+        <div class="qa-a">
+          <div class="say">
+            <div class="say-label">Say this</div>
+            "The requirement said 'logic is given in another file' — separate from the data files. In my system, this is the <code>SYSTEM_PROMPT</code> constant in <code>llm.py</code>. It contains five analytical reasoning rules that govern how the LLM approaches every question:
+            <br><br>
+            1. Scan the full picture first — never jump to a conclusion from one column<br>
+            2. Find signal not noise — a 4.5 vs 4.7 feedback gap is noise; a 74 vs 89 score gap is signal<br>
+            3. Tell the story with numbers — vague language like 'performed well' without a number is not allowed<br>
+            4. Compare everyone — always show the full ranking, not just the winner<br>
+            5. Explain the WHY — connect study hours to grades, attendance patterns to performance
+            <br><br>
+            That is the logic the model runs on, completely separate from the data."
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q">
+          <div class="qa-q-icon">Q</div>
+          "What datasets did you use? Why did you add more?"
+        </div>
+        <div class="qa-a">
+          <p>The original 4 given were: student_results, attendance, department_location, teaching_efficiency.</p>
+          <div class="say">
+            <div class="say-label">Say this</div>
+            "The given datasets covered grades and attendance, but to answer richer questions — like 'which student improved the most?' or 'is there a link between study hours and grades?' — I needed more depth. So I added 8 more tables:
+            <br><br>
+            The three you specifically mentioned: <strong>study_hours</strong> (daily study sessions per subject), <strong>mid_sem_marks</strong> (marks out of 50), and <strong>end_sem_marks</strong> (marks out of 100). The engine automatically computes the improvement from mid to end sem per student and per course.
+            <br><br>
+            I also added student_profile (names, CGPA, mentor), assignment_scores, project_performance, placement_readiness, and teacher_profile — making the system able to answer career-level, behavioral, and cross-dimensional questions, not just 'what score did this student get.'"
+          </div>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <div class="qa-q">
+          <div class="qa-q-icon">Q</div>
+          "Walk me through one question end-to-end — how does the system process it?"
+        </div>
+        <div class="qa-a">
+          <div class="steps">
+            <div class="step">
+              <div class="step-n">1</div>
+              <div>
+                <div class="step-title">User types: "Which student improved the most from mid-sem to end-sem?"</div>
+                <div class="step-body">Streamlit captures the question in <code>app.py</code> and calls <code>narrate(question, ctx)</code></div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-n">2</div>
+              <div>
+                <div class="step-title">data_engine loads all context</div>
+                <div class="step-body"><code>load_all_context()</code> serializes all 12 tables as readable text. Then <code>_build_computed_summaries()</code> runs a SQL JOIN between mid_sem_marks and end_sem_marks, computes average improvement per student, and appends the ranked result.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-n">3</div>
+              <div>
+                <div class="step-title">LLM call with full context</div>
+                <div class="step-body"><code>llm.py</code> sends system prompt + all data + the question to Gemini 1.5 Flash in a single HTTP call. The model reads the pre-computed improvement rankings and reasons over them.</div>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-n">4</div>
+              <div>
+                <div class="step-title">Answer rendered with citations</div>
+                <div class="step-body">The answer appears in a styled card. Citation chips at the bottom show which tables were referenced — e.g. <code>mid_sem_marks</code>, <code>end_sem_marks</code>, <code>student_profile</code>.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 5. POWER PHRASES -->
+  <div class="section">
+    <h2><span class="num">05</span> Key phrases to use naturally</h2>
+    <div class="phrases">
+      <div class="phrase">
+        <span class="phrase-q">"</span>
+        I mirrored the NotebookLM architecture — full context in one window, same Gemini model, zero chunking.
+      </div>
+      <div class="phrase">
+        <span class="phrase-q">"</span>
+        The logic file is the system prompt — it's the analyst brain, the data files are just the raw material.
+      </div>
+      <div class="phrase">
+        <span class="phrase-q">"</span>
+        Pre-computed SQL summaries prevent the LLM from miscounting — it reads verified facts, not raw rows.
+      </div>
+      <div class="phrase">
+        <span class="phrase-q">"</span>
+        RAG would introduce retrieval errors here — full context beats partial retrieval when your budget allows it.
+      </div>
+      <div class="phrase">
+        <span class="phrase-q">"</span>
+        Gemini 1.5 Flash is completely free via Google AI Studio — no billing, 1M token context, same model as NotebookLM.
+      </div>
+      <div class="phrase">
+        <span class="phrase-q">"</span>
+        The system answers judgment questions too — 'which teacher might be fired' — it's an analyst, not a search box.
+      </div>
+    </div>
+  </div>
+
+  <!-- 6. CHEAT SHEET -->
+  <div class="section">
+    <h2><span class="num">06</span> Quick-reference cheat sheet</h2>
+    <div class="cheat">
+      <div class="cheat-header">Numbers &amp; facts to know cold</div>
+      <div class="cheat-body">
+        <div class="cheat-row">
+          <div class="cheat-label">Tables</div>
+          <div class="cheat-val"><strong>12 datasets</strong> — student_profile, student_results, mid_sem_marks, end_sem_marks, study_hours, assignment_scores, project_performance, placement_readiness, attendance, teaching_efficiency, teacher_profile, department_location</div>
+        </div>
+        <div class="cheat-row">
+          <div class="cheat-label">Model</div>
+          <div class="cheat-val"><strong>Gemini 1.5 Flash</strong> — free via Google AI Studio · 1M token context · same model as NotebookLM · Groq Llama-3.3-70B as auto-fallback (also free)</div>
+        </div>
+        <div class="cheat-row">
+          <div class="cheat-label">Stack</div>
+          <div class="cheat-val"><strong>Python · Streamlit · SQLite · no paid services</strong> — pip install streamlit pandas, two commands to run</div>
+        </div>
+        <div class="cheat-row">
+          <div class="cheat-label">Files</div>
+          <div class="cheat-val"><code>load_data.py</code> (CSV→DB) · <code>data_engine.py</code> (context builder) · <code>llm.py</code> (logic + API) · <code>app.py</code> (UI)</div>
+        </div>
+        <div class="cheat-row">
+          <div class="cheat-label">Added data</div>
+          <div class="cheat-val"><code>study_hours.csv</code> (35 rows) · <code>mid_sem_marks.csv</code> (15 rows, out of 50) · <code>end_sem_marks.csv</code> (out of 100)</div>
+        </div>
+        <div class="cheat-row">
+          <div class="cheat-label">No-hallucination</div>
+          <div class="cheat-val">System prompt rule: "every number must exist verbatim in the data" + SQL pre-computed aggregates in Python before LLM sees them</div>
+        </div>
+        <div class="cheat-row">
+          <div class="cheat-label">vs RAG</div>
+          <div class="cheat-val">RAG = retrieve fragments. This = full context. Full context wins for small-medium datasets — no retrieval errors, no missed joins, same principle as NotebookLM</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:12px;">
+      <strong>If asked what you'd improve:</strong> "I'd add a feedback loop — if the model says 'data not found' but the user knows the answer exists, that flags a gap in the dataset or a pre-computation we're missing. I'd also add session memory so follow-up questions can reference previous answers."
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-l">Interview Prep · Student Intelligence Assistant · Tredence</div>
+    <div class="footer-r">
+      <span>Know your architecture</span>
+      <span>Own the NotebookLM connection</span>
+    </div>
+  </div>
+
+</div>

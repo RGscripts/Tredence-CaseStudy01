@@ -1,0 +1,6 @@
+project_id,student_id,project_title,team_size,mentor_id,grade,marks,remarks
+PJ001,S1001,Library Management System,3,T2001,A,90,Excellent teamwork and code quality
+PJ002,S1002,Digital Clock Circuit,2,T2002,B,75,Good design but late submission
+PJ003,S1003,CAD Model of Gear Assembly,4,T2003,A+,95,Outstanding mechanical design
+PJ004,S1004,Land Survey Mapping Tool,2,T2004,B+,80,Solid execution
+PJ005,S1005,Student Attendance Tracker,3,T2001,C,60,Needs improvement in implementation

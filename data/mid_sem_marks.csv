@@ -1,0 +1,16 @@
+mid_id,student_id,academic_year,semester,course_code,course_name,max_marks,marks_obtained
+MS001,S1001,2023-24,Sem1,CS101,Intro to Programming,50,42
+MS002,S1001,2023-24,Sem1,MA101,Calculus I,50,38
+MS003,S1002,2023-24,Sem1,EE101,Circuit Theory,50,29
+MS004,S1003,2023-24,Sem1,ME101,Engineering Mechanics,50,45
+MS005,S1004,2023-24,Sem1,CE101,Surveying,50,35
+MS006,S1005,2023-24,Sem1,CS101,Intro to Programming,50,27
+MS007,S1002,2023-24,Sem2,EE102,Signals and Systems,50,32
+MS008,S1001,2023-24,Sem2,CS102,Data Structures,50,44
+MS009,S1001,2023-24,Sem2,MA102,Calculus II,50,40
+MS010,S1003,2023-24,Sem2,ME102,Thermodynamics,50,43
+MS011,S1003,2023-24,Sem2,MA102,Calculus II,50,41
+MS012,S1004,2023-24,Sem2,CE102,Structural Analysis,50,39
+MS013,S1004,2023-24,Sem2,MA102,Calculus II,50,33
+MS014,S1005,2023-24,Sem2,CS102,Data Structures,50,36
+MS015,S1005,2023-24,Sem2,MA102,Calculus II,50,32

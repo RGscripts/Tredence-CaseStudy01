@@ -1,0 +1,16 @@
+result_id,student_id,academic_year,semester,course_code,course_name,credits,score,grade
+R5001,S1001,2023-24,Sem1,CS101,Intro to Programming,4,85,A
+R5002,S1001,2023-24,Sem1,MA101,Calculus I,3,78,B+
+R5003,S1002,2023-24,Sem1,EE101,Circuit Theory,4,62,B-
+R5004,S1003,2023-24,Sem1,ME101,Engineering Mechanics,3,91,A+
+R5005,S1004,2023-24,Sem1,CE101,Surveying,3,74,B
+R5006,S1005,2023-24,Sem1,CS101,Intro to Programming,4,59,C
+R5007,S1002,2023-24,Sem2,EE102,Signals and Systems,4,68,B
+R5008,S1001,2023-24,Sem2,CS102,Data Structures,4,88,A
+R5009,S1001,2023-24,Sem2,MA102,Calculus II,3,82,A-
+R5010,S1003,2023-24,Sem2,ME102,Thermodynamics,4,86,A
+R5011,S1003,2023-24,Sem2,MA102,Calculus II,3,83,A-
+R5012,S1004,2023-24,Sem2,CE102,Structural Analysis,3,79,B+
+R5013,S1004,2023-24,Sem2,MA102,Calculus II,3,68,B
+R5014,S1005,2023-24,Sem2,CS102,Data Structures,4,72,B
+R5015,S1005,2023-24,Sem2,MA102,Calculus II,3,65,B-

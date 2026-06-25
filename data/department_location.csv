@@ -1,0 +1,10 @@
+entity_id,department,program_or_role,building,room,campus
+S1001,Computer Science,BTech,Block A,Room 210,Main Campus
+S1002,Electronics,BTech,Block B,Room 115,Main Campus
+S1003,Mechanical,BTech,Block C,Room 305,Main Campus
+S1004,Civil,BTech,Block D,Room 120,North Campus
+S1005,Computer Science,BTech,Block A,Room 210,Main Campus
+T2001,Computer Science,Professor,Block A,Dept Office 12,Main Campus
+T2002,Electronics,Assistant Professor,Block B,Dept Office 5,Main Campus
+T2003,Mechanical,Lecturer,Block C,Lab 3,Main Campus
+T2004,Civil,Associate Professor,Block D,Dept Office 2,North Campus

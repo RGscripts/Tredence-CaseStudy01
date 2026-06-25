@@ -1,0 +1,5 @@
+teacher_id,name,gender,qualification,experience_years,specialization,email
+T2001,Dr. Rajan Pillai,M,PhD Computer Science,15,Artificial Intelligence,rajan.pillai@example.edu
+T2002,Prof. Anita Desai,F,MTech Electronics,8,Signal Processing,anita.desai@example.edu
+T2003,Dr. Vikram Joshi,M,PhD Mechanical Engineering,12,Thermodynamics and Heat Transfer,vikram.joshi@example.edu
+T2004,Prof. Kavitha Menon,F,MTech Civil Engineering,10,Structural Engineering,kavitha.menon@example.edu

@@ -1,0 +1,6 @@
+student_id,name,gender,date_of_birth,program,year_of_study,email
+S1001,Aarav Sharma,M,2003-05-12,BTech Computer Science,2nd Year,aarav.sharma@example.edu
+S1002,Priya Nair,F,2003-08-21,BTech Electronics,2nd Year,priya.nair@example.edu
+S1003,Rohan Verma,M,2002-11-03,BTech Mechanical,2nd Year,rohan.verma@example.edu
+S1004,Sneha Patel,F,2003-02-17,BTech Civil,2nd Year,sneha.patel@example.edu
+S1005,Karan Mehta,M,2004-01-09,BTech Computer Science,1st Year,karan.mehta@example.edu

@@ -1,0 +1,6 @@
+readiness_id,student_id,cgpa,technical_score,communication_score,aptitude_score,internship_done,placement_status,readiness_level
+PR001,S1001,8.6,88,80,82,Yes,Placed,High
+PR002,S1002,7.2,70,75,68,No,Not Placed,Medium
+PR003,S1003,8.9,91,78,85,Yes,Placed,High
+PR004,S1004,7.5,72,80,70,No,Not Placed,Medium
+PR005,S1005,6.1,55,60,58,No,Not Placed,Low
